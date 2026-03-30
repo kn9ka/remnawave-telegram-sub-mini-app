@@ -1,6 +1,7 @@
 'use client'
 
 import { type PropsWithChildren, useEffect, useState } from 'react'
+import { usePathname } from 'next/navigation'
 
 import '@mantine/core/styles.layer.css'
 import '@mantine/dates/styles.layer.css'
@@ -18,6 +19,7 @@ import {
     Stack,
     Title
 } from '@mantine/core'
+import { Notifications } from '@mantine/notifications'
 
 import {
     initData,
@@ -213,9 +215,9 @@ function RootInner({ children }: PropsWithChildren) {
                                 ? 'Error get user'
                                 : errorConnect === 'ERR_GET_SUB_LINK'
                                   ? 'Error get sub link'
-                                : errorConnect === 'ERR_PARSE_APPCONFIG'
-                                  ? 'Error parsing app config'
-                                  : JSON.stringify(errorConnect)}
+                                  : errorConnect === 'ERR_PARSE_APPCONFIG'
+                                    ? 'Error parsing app config'
+                                    : JSON.stringify(errorConnect)}
                         </Title>
                         <ErrorConnection />
                     </Stack>
@@ -261,14 +263,30 @@ function RootInner({ children }: PropsWithChildren) {
 }
 
 export function Root(props: PropsWithChildren) {
+    const didMount = useDidMount()
+
+    const pathname = usePathname()
+    const isRedirectRoute = pathname === '/redirect' || pathname.startsWith('/redirect/')
+
+    if (isRedirectRoute) {
+        return (
+            <DirectionProvider>
+                <MantineProvider defaultColorScheme="dark" theme={theme}>
+                    <Notifications position="top-center" />
+                    {props.children}
+                </MantineProvider>
+            </DirectionProvider>
+        )
+    }
+
     // Unfortunately, Telegram Mini Apps does not allow us to use all features of
     // the Server Side Rendering. That's why we are showing loader on the server
     // side.
-    const didMount = useDidMount()
 
     return didMount ? (
         <DirectionProvider>
             <MantineProvider defaultColorScheme="dark" theme={theme}>
+                <Notifications position="top-center" />
                 <ErrorBoundary fallback={ErrorPage}>
                     <RootInner {...props} />
                 </ErrorBoundary>
@@ -277,6 +295,7 @@ export function Root(props: PropsWithChildren) {
     ) : (
         <DirectionProvider>
             <MantineProvider defaultColorScheme="dark" theme={theme}>
+                <Notifications position="top-center" />
                 <Loading />
             </MantineProvider>
         </DirectionProvider>

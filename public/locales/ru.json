@@ -6,7 +6,11 @@
                 "no-sub": "У вас нет подписки",
                 "error-connect": "Ошибка подключения",
                 "error-parse-appconfig": "Ошибка обработки App-config",
-                "refresh": "Обновить"
+                "refresh": "Обновить",
+                "redirect-message": "Конфигурация через {seconds} секунд будет добавлена в ваше приложение",
+                "redirect-link-missing": "Ссылка для добавления конфигурации не найдена",
+                "redirect-add-now": "Добавить сейчас",
+                "redirect-check-link": "Проверьте параметры ссылки и попробуйте снова."
             }
         }
     }

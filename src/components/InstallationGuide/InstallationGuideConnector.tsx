@@ -82,6 +82,16 @@ export const InstallationGuideConnector = (props: IProps) => {
 
     const subscriptionUrl = subscription.subscriptionUrl
 
+    const getRedirectUrl = (formattedUrl?: string) => {
+        if (!formattedUrl) return undefined
+
+        if (appConfig?.redirectLink) {
+            return `${appConfig.redirectLink}${formattedUrl}`
+        }
+
+        return `/redirect?formattedUrl=${encodeURIComponent(formattedUrl)}`
+    }
+
     const renderBlockButtons = (
         buttons: TSubscriptionPageButtonConfig[],
         variant: ButtonVariant
@@ -162,14 +172,15 @@ export const InstallationGuideConnector = (props: IProps) => {
                     return (
                         <Button
                             key={index}
-                            onClick={() =>
-                                window.open(
-                                    isTDesktop
-                                        ? `${appConfig?.redirectLink}${formattedUrl}`
-                                        : formattedUrl,
-                                    '_blank'
-                                )
-                            }
+                            onClick={() => {
+                                const targetUrl = isTDesktop
+                                    ? getRedirectUrl(formattedUrl)
+                                    : formattedUrl
+
+                                if (!targetUrl) return
+
+                                window.open(targetUrl, '_blank')
+                            }}
                             leftSection={leftSection}
                             radius="md"
                             variant={variant}

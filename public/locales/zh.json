@@ -6,7 +6,11 @@
                 "no-sub": "你还没有订阅",
                 "error-connect": "连接错误",
                 "error-parse-appconfig": "App-config 处理错误",
-                "refresh": "刷新"
+                "refresh": "刷新",
+                "redirect-message": "配置将在 {seconds} 秒后添加到你的应用中",
+                "redirect-link-missing": "未找到配置添加链接",
+                "redirect-add-now": "立即添加",
+                "redirect-check-link": "请检查链接参数后重试。"
             }
         }
     }

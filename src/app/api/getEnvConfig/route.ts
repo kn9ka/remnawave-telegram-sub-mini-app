@@ -5,8 +5,7 @@ export async function POST() {
         const isHappCryptoLinkEnabled = process.env.CRYPTO_LINK === 'true'
         const isSnowflakeEnabled = process.env.FORCE_SNOWFLAKES === 'true'
         const buyLink = process.env.BUY_LINK
-        const redirectLink =
-            process.env.REDIRECT_LINK || 'https://maposia.github.io/redirect-page/?redirect_to='
+        const redirectLink = process.env.REDIRECT_LINK
 
         return new Response(
             JSON.stringify({

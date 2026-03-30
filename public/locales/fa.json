@@ -7,7 +7,11 @@
         "podpiska": "اشتراک",
         "error-connect": "خطا در اتصال",
         "error-parse-appconfig": "خطا در پردازش تنظیمات برنامه",
-        "refresh": "به‌روزرسانی"
+        "refresh": "به‌روزرسانی",
+        "redirect-message": "پیکربندی تا {seconds} ثانیه دیگر به برنامه شما اضافه خواهد شد",
+        "redirect-link-missing": "لینک افزودن پیکربندی پیدا نشد",
+        "redirect-add-now": "همین حالا اضافه کن",
+        "redirect-check-link": "پارامترهای لینک را بررسی کنید و دوباره تلاش کنید."
       }
     }
   }

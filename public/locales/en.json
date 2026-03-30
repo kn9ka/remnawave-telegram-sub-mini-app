@@ -7,7 +7,11 @@
                 "podpiska": "Subscription",
                 "error-connect": "Connection error",
                 "error-parse-appconfig": "Ошибка обработки App-config",
-                "refresh": "Refresh"
+                "refresh": "Refresh",
+                "redirect-message": "The configuration will be added to your app in {seconds} seconds",
+                "redirect-link-missing": "Configuration link not found",
+                "redirect-add-now": "Add now",
+                "redirect-check-link": "Check the link parameters and try again."
             }
         }
     }
