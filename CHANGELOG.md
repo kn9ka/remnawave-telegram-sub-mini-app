@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.3.0](https://github.com/maposia/remnawave-telegram-sub-mini-app/compare/v3.2.7...v3.3.0) (2026-03-30)
+
+
+### Features
+
+* support for redirect page in app and notifications integration ([64e5378](https://github.com/maposia/remnawave-telegram-sub-mini-app/commit/64e5378dfae466f263f9b6a6ca5b18dacf6c4745))
+
+
+### Bug Fixes
+
+* minimize the app when click buy ([efb98b5](https://github.com/maposia/remnawave-telegram-sub-mini-app/commit/efb98b546eb6aad6f679fda4d614134e217df1a3))
+
 ### [3.2.7](https://github.com/maposia/remnawave-telegram-sub-mini-app/compare/v3.2.6...v3.2.7) (2026-02-21)
 
 ### [3.2.6](https://github.com/maposia/remnawave-telegram-sub-mini-app/compare/v3.2.5...v3.2.6) (2026-02-21)
