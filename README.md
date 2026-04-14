@@ -76,14 +76,26 @@ Example below.
 ```yaml
 services:
    remnawave-mini-app:
-      image: ghcr.io/maposia/remnawave-telegram-sub-mini-app:latest
+      build:
+         context: .
+         dockerfile: Dockerfile
       container_name: remnawave-telegram-mini-app
       hostname: remnawave-telegram-mini-app
       env_file:
          - .env
+      environment:
+         PORT: ${PORT:-3020}
       restart: always
-      ports:
-         - '127.0.0.1:3020:3020'
+      healthcheck:
+         test:
+            - CMD-SHELL
+            - curl -fsS http://127.0.0.1:$${PORT:-3020}/api/healthz || exit 1
+         interval: 30s
+         timeout: 10s
+         retries: 5
+         start_period: 40s
+      expose:
+         - '3020'
 #      networks:
 #         - remnawave-network
 
@@ -93,6 +105,10 @@ services:
 #      driver: bridge
 #      external: true
 ```
+
+For Coolify and other Compose-based platforms, the container health is exposed on `GET /api/healthz`.
+If your service listens on port `3020`, set the Coolify domain to `https://your-domain.com:3020`.
+Coolify will proxy that service on normal public ports `80/443`; you do not need `ports: 3020:3020` for domain access.
 
 Uncomment if you want to use local connection via single network in docker
 
@@ -109,9 +125,11 @@ networks:
 
 5. Run containers.
    ```bash
-   docker compose up -d && docker compose logs -f
+   docker compose up -d --build && docker compose logs -f
    ```
-6. Mini app is now running on http://127.0.0.1:3020
+6. The mini app listens inside the container on port `3020`.
+   In Coolify, attach your domain to `https://your-domain.com:3020`.
+   If you need direct local access without Coolify, replace `expose` with `ports: - '127.0.0.1:3020:3020'`.
 
 Now we are ready to move on the Reverse Proxy installation.
 
@@ -147,15 +165,15 @@ This allows you to serve subscription links through your own domain while mainta
 
 ## Update Instructions
 
-1. Pull the latest Docker image:
+1. Rebuild the image:
 
    ```bash
-   docker compose pull
+   docker compose build --no-cache
    ```
 
 2. Restart the containers:
    ```bash
-   docker compose down && docker compose up -d
+   docker compose down && docker compose up -d --build
    ```
 
 ## Contributing

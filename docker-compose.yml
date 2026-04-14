@@ -1,0 +1,30 @@
+services:
+    remnawave-mini-app:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        container_name: remnawave-telegram-mini-app
+        hostname: remnawave-telegram-mini-app
+        env_file:
+            - .env
+        environment:
+            PORT: ${PORT:-3020}
+        restart: always
+        healthcheck:
+            test:
+                - CMD-SHELL
+                - curl -fsS http://127.0.0.1:$${PORT:-3020}/api/healthz || exit 1
+            interval: 30s
+            timeout: 10s
+            retries: 5
+            start_period: 40s
+        expose:
+            - '3020'
+        networks:
+            - remnawave-network
+
+networks:
+    remnawave-network:
+        name: remnawave-network
+        driver: bridge
+        external: true
